@@ -1,10 +1,13 @@
+require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 app.use(express.json())
 app.use(cors())
-//let todos = [];
+
+const MONGO_URI = process.env.MONGO_URI;
+
 //creating schema
 const todoSchema = new mongoose.Schema({
     title: {
@@ -18,7 +21,7 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model("Todo", todoSchema);
 
  // connection
- mongoose.connect("mongodb://localhost:27017/todos")
+ mongoose.connect(MONGO_URI)
  .then(()=>{
     console.log("connected to db")
  })
@@ -29,13 +32,6 @@ const Todo = mongoose.model("Todo", todoSchema);
 //create todo
 app.post('/todos',async(req, res)=>{
     const {title, description}=req.body;
-    //const newTodo ={
-    //id:todos.length + 1,
-    //     title,
-    //     description
-    // };
-    // todos.push(newTodo);
-    // console.log(todos);
     try{
     const newTodo = new Todo ({title, description})
     await newTodo.save()
