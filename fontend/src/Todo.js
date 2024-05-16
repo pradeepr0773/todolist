@@ -13,7 +13,7 @@ export default function Todo() {
     const [EditTitle,setEditTitle]=useState("");
     const [EditDescription,setEditDescription]=useState("");
 
-    const apiUrl="http://localhost:3001"
+    const apiUrl = "https://todolist-vwm1.onrender.com"
     const handleSubmit =()=>{
         setError("")
             if(title.trim() !== '' && description.trim() !== ''){
